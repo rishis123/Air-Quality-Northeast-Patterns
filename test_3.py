@@ -10,17 +10,22 @@ arr1 = ['Carbon monoxide', 'Ozone', 'Sulfur dioxide', 'Nitrogen dioxide (NO2)']
 
 arr2 = []
 
+arr3 = []
+
+arr4 = []
+
 for i in arr:
     for j in arr1:
         new_df = df[(df["State Code"] == i) & (df['Parameter Name'] == j)]
         arr2.append(new_df["Arithmetic Mean"].mean())
-        
-#x = pd.DataFrame({"State Names":arr})
-#y = pd.DataFrame({"Gases": arr1})
-#z = pd.DataFrame({"Means": arr2})
+        arr3.append(j)
+        arr4.append(i)
 
-#x = pd.concat([x,y])
-#x = pd.concat([x,z])
+data = {
+    'State Names': arr4,
+    'Gases': arr3,
+    'Mean Value': arr2
+}
+x = pd.DataFrame(data)
 
-#print(x)
-#x.to_excel('Output.xlsx')
+x.to_excel('Output.xlsx')
