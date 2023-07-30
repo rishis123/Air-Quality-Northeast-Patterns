@@ -1,4 +1,4 @@
-import pandas as pd
+import pandas as pd #This program cleans the data from the original data-extracter, including taking arithmetic means (if numerous datapoints in a single year, single gas, and single state). 
 
 df = pd.read_excel('extracted_data_2000.xlsx')
 
