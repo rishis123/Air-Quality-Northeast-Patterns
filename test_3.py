@@ -21,11 +21,10 @@ for i in arr:
         arr3.append(j)
         arr4.append(i)
 
-data = {
+data = pd.DataFrame({
     'State Names': arr4,
     'Gases': arr3,
     'Mean Value': arr2
-}
-x = pd.DataFrame(data)
+})
 
-x.to_excel('Output.xlsx')
+data.to_excel('Output.xlsx')
