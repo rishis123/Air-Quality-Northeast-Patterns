@@ -1,0 +1,44 @@
+#Bhavesh recommended we put things for ML model by parameter (type of gas) rather than year
+
+import pandas as pd
+import numpy as np
+df = pd.DataFrame()
+
+for k in range (2000, 2001):
+    m = pd.read_excel('/Users/rishishah/Downloads/extracted_data_' + str(k) + '.xlsx')
+    df = pd.concat([df, m])
+
+m = pd.read_excel('/Users/rishishah/Downloads/extracted_data_2001-2.xlsx')
+df = pd.concat([df, m])
+
+for k in range (2002, 2023):
+    m = pd.read_excel('/Users/rishishah/Downloads/extracted_data_' + str(k) + '.xlsx')
+    df = pd.concat([df, m])
+
+
+df['Year'] = np.nan
+df = df.drop(columns = 'Unnamed: 0')
+
+#delete all null rows
+df = df.dropna(how='all')
+
+years = []
+for i in range (2000, 2023):
+    for j in range (1, 37):
+        years.append(i)
+
+df['Year'] = years
+
+# Set the display option to show all columns
+pd.set_option('display.max_columns', None)
+
+#Now, to separate the 4 parameters into 4 excel files
+cMonoxideRows = df[df['Gases'] == 'Carbon monoxide']
+OzoneRows = df[df['Gases'] == 'Ozone']
+sDioxideRows = df[df['Gases'] == 'Sulfur dioxide']
+NDioxideRows = df[(df['Gases'] != 'Carbon monoxide') & (df['Gases'] != 'Ozone') & (df['Gases'] != 'Sulfur dioxide')]
+
+cMonoxideRows.to_excel('CarbonMonoxideFile.xlsx')
+OzoneRows.to_excel('OzoneFile.xlsx')
+sDioxideRows.to_excel('SulfurDioxideFile.xlsx')
+NDioxideRows.to_excel('NitrogenDioxideFile.xlsx')
